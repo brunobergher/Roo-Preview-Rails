@@ -18,4 +18,6 @@ Rails.application.configure do
   config.i18n.fallbacks = true
   config.active_support.report_deprecations = false
   config.active_record.dump_schema_after_migration = false
+  config.action_cable.url = ENV["ACTION_CABLE_URL"] if ENV["ACTION_CABLE_URL"].present?
+  config.action_cable.allowed_request_origins = ENV["ALLOWED_ORIGINS"]&.split(",") || [/https?:\/\/.*/]
 end

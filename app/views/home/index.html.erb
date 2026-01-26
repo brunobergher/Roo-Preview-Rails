@@ -1,0 +1,62 @@
+<%= turbo_stream_from "counter" %>
+
+<main class="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-8">
+  <div class="text-center mb-8">
+    <h1 class="text-5xl font-bold text-red-600 mb-2">Hello, World!</h1>
+    <p class="text-gray-500">Rails 8 Full Stack Demo</p>
+  </div>
+
+  <% if notice %>
+    <p class="bg-green-100 text-green-800 px-4 py-3 rounded-lg mb-6 text-sm max-w-2xl">
+      <%= notice %>
+    </p>
+  <% end %>
+
+  <div class="flex flex-col lg:flex-row gap-8 items-center">
+    <!-- Left: Counter -->
+    <div class="text-center">
+      <%= render "counter", counter: @counter %>
+
+      <%= button_to "Click Me", increment_path, method: :post,
+          class: "w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-4 px-8 rounded-lg text-lg transition-colors cursor-pointer" %>
+    </div>
+
+    <!-- Right: How it works -->
+    <div class="text-left w-80">
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center gap-3 bg-white p-3 rounded-lg border-l-4 border-blue-700">
+          <div class="text-xl">🐘</div>
+          <div>
+            <div class="font-semibold text-sm text-gray-800">PostgreSQL</div>
+            <div class="text-xs text-gray-500">Stores the counter value</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 bg-white p-3 rounded-lg border-l-4 border-red-600">
+          <div class="text-xl">⚡</div>
+          <div>
+            <div class="font-semibold text-sm text-gray-800">Redis</div>
+            <div class="text-xs text-gray-500">Queues the increment job</div>
+          </div>
+        </div>
+
+        <a href="/sidekiq" class="flex items-center gap-3 bg-white p-3 rounded-lg border-l-4 border-pink-700 hover:bg-gray-50 transition-colors">
+          <div class="text-xl">👷</div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-gray-800">Sidekiq</div>
+            <div class="text-xs text-gray-500">Processes job after 2s delay</div>
+          </div>
+          <div class="text-gray-400 text-xs">→</div>
+        </a>
+
+        <div class="flex items-center gap-3 bg-white p-3 rounded-lg border-l-4 border-emerald-600">
+          <div class="text-xl">📡</div>
+          <div>
+            <div class="font-semibold text-sm text-gray-800">ActionCable</div>
+            <div class="text-xs text-gray-500">Pushes live updates via WebSocket</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

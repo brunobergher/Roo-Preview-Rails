@@ -1,6 +1,8 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  # Use template0 to avoid encoding conflicts on systems where template1 uses SQL_ASCII.
+  template: template0
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:

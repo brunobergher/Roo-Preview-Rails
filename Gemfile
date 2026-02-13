@@ -34,3 +34,5 @@ end
 gem "tailwindcss-rails", "~> 4.4"
 
 gem "rack-cors", "~> 3.0"
+
+gem "sinatra", "~> 4.0"

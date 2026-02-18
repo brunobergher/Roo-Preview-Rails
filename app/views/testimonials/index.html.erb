@@ -1,0 +1,123 @@
+<main class="min-h-screen bg-gray-50 p-8">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-bold text-gray-800 mb-2">Testimonial Wall</h1>
+      <p class="text-gray-500">Share your experience with us</p>
+    </div>
+
+    <% if notice %>
+      <p class="bg-green-100 text-green-800 px-4 py-3 rounded-lg mb-6 text-sm">
+        <%= notice %>
+      </p>
+    <% end %>
+
+    <% if alert %>
+      <p class="bg-red-100 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">
+        <%= alert %>
+      </p>
+    <% end %>
+
+    <!-- Add Testimonial Form -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-10">
+      <h2 class="text-lg font-semibold text-gray-700 mb-4">Add Your Testimonial</h2>
+
+      <%= form_with model: @testimonial, url: testimonials_path, class: "space-y-4" do |f| %>
+        <% if @testimonial.errors.any? %>
+          <div class="bg-red-100 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <ul class="list-disc list-inside">
+              <% @testimonial.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <%= f.label :name, "Your Name", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.text_field :name, class: "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent", placeholder: "Enter your name" %>
+          </div>
+
+          <div>
+            <%= f.label :email, "Email (optional)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.email_field :email, class: "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent", placeholder: "you@example.com" %>
+          </div>
+        </div>
+
+        <div>
+          <%= f.label :bio, "Short Bio (optional)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.text_field :bio, class: "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent", placeholder: "e.g. Software Engineer at Acme Corp", maxlength: 160 %>
+        </div>
+
+        <div>
+          <%= f.label :body, "Your Testimonial", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.text_area :body, rows: 3, class: "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent", placeholder: "Share your experience..." %>
+        </div>
+
+        <div>
+          <%= f.submit "Add Testimonial", class: "bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-lg text-sm transition-colors cursor-pointer" %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Testimonial Wall -->
+    <% if @testimonials.any? %>
+      <div class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+        <% @testimonials.each do |testimonial| %>
+          <div class="break-inside-avoid bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+            <p class="text-gray-700 text-sm mb-3"><%= testimonial.body %></p>
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-sm font-bold">
+                <%= testimonial.name.first.upcase %>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-gray-800"><%= testimonial.name %></p>
+                <% if testimonial.bio.present? %>
+                  <p class="text-xs text-gray-500"><%= testimonial.bio %></p>
+                <% end %>
+                <% if testimonial.email.present? %>
+                  <p class="text-xs text-gray-400"><%= testimonial.email %></p>
+                <% end %>
+                <p class="text-xs text-gray-400"><%= time_ago_in_words(testimonial.created_at) %> ago</p>
+              </div>
+            </div>
+
+            <!-- Comments -->
+            <% if testimonial.comments.any? %>
+              <div class="border-t border-gray-100 pt-3 mt-3 space-y-2">
+                <% testimonial.comments.each do |comment| %>
+                  <div class="bg-gray-50 rounded-lg px-3 py-2">
+                    <p class="text-xs text-gray-600"><%= comment.body %></p>
+                    <p class="text-xs text-gray-400 mt-1">
+                      <span class="font-medium text-gray-500"><%= comment.author_name %></span>
+                      <% if comment.email.present? %>
+                        <span class="text-gray-300">(<%= comment.email %>)</span>
+                      <% end %>
+                      &middot; <%= time_ago_in_words(comment.created_at) %> ago
+                    </p>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+
+            <!-- Comment Form -->
+            <div class="border-t border-gray-100 pt-3 mt-3">
+              <%= form_with model: Comment.new, url: testimonial_comments_path(testimonial), class: "flex flex-col gap-2" do |f| %>
+                <div class="flex gap-2">
+                  <%= f.text_field :author_name, class: "flex-1 border border-gray-200 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-transparent", placeholder: "Your name" %>
+                  <%= f.email_field :email, class: "flex-1 border border-gray-200 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-transparent", placeholder: "Email (optional)" %>
+                </div>
+                <div class="flex gap-2">
+                  <%= f.text_field :body, class: "flex-1 border border-gray-200 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-transparent", placeholder: "Add a comment..." %>
+                  <%= f.submit "Reply", class: "bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors cursor-pointer" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-center text-gray-400 text-sm">No testimonials yet. Be the first to share!</p>
+    <% end %>
+  </div>
+</main>

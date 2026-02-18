@@ -3,7 +3,7 @@
 #
 # See: https://docs.roo.codes/preview-environments
 
-if ENV['ROO_WEB_HOST'].present?
+if ENV['ROO_WEB_HOST'].present? && !Rails.env.test?
   Rails.application.configure do
     # Allow requests from the preview environment host.
     config.hosts << URI.parse(ENV['ROO_WEB_HOST']).host

@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_26_000001) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_18_123000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.string "author_name", null: false
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.bigint "testimonial_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["testimonial_id"], name: "index_comments_on_testimonial_id"
+  end
 
   create_table "counters", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -21,4 +31,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_26_000001) do
     t.integer "value", default: 0, null: false
     t.index ["name"], name: "index_counters_on_name", unique: true
   end
+
+  create_table "testimonials", force: :cascade do |t|
+    t.string "bio"
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "comments", "testimonials"
 end

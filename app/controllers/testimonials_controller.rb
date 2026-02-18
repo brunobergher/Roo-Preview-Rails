@@ -1,6 +1,6 @@
 class TestimonialsController < ApplicationController
   def index
-    @testimonials = Testimonial.order(created_at: :desc)
+    @testimonials = Testimonial.includes(:comments).order(created_at: :desc)
     @testimonial = Testimonial.new
   end
 

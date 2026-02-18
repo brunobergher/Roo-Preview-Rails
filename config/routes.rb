@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   post "increment", to: "home#increment"
   get "ping", to: "home#ping"
 
-  resources :testimonials, only: [:index, :create]
+  resources :testimonials, only: [:index, :create] do
+    resources :comments, only: [:create]
+  end
 end

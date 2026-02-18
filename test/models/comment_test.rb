@@ -10,6 +10,11 @@ class CommentTest < ActiveSupport::TestCase
     assert comment.valid?
   end
 
+  test "valid comment with email" do
+    comment = @testimonial.comments.build(author_name: "Bob", body: "I agree!", email: "bob@example.com")
+    assert comment.valid?
+  end
+
   test "invalid without author_name" do
     comment = @testimonial.comments.build(body: "I agree!")
     assert_not comment.valid?
@@ -25,5 +30,16 @@ class CommentTest < ActiveSupport::TestCase
   test "belongs to testimonial" do
     comment = @testimonial.comments.create!(author_name: "Bob", body: "Nice!")
     assert_equal @testimonial, comment.testimonial
+  end
+
+  test "invalid with malformed email" do
+    comment = @testimonial.comments.build(author_name: "Bob", body: "Nice!", email: "bad-email")
+    assert_not comment.valid?
+    assert_includes comment.errors[:email], "must be a valid email address"
+  end
+
+  test "valid with blank email" do
+    comment = @testimonial.comments.build(author_name: "Bob", body: "Nice!", email: "")
+    assert comment.valid?
   end
 end

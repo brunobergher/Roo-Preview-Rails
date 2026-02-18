@@ -1,8 +1,6 @@
 require "test_helper"
 
 class TestimonialsControllerTest < ActionDispatch::IntegrationTest
-  # allow_browser requires either no user-agent or a modern browser version.
-  # Sending no User-Agent header bypasses the check entirely.
   setup do
     @headers = { "HTTP_USER_AGENT" => "" }
   end
@@ -13,6 +11,15 @@ class TestimonialsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create testimonial with valid params" do
+    assert_difference("Testimonial.count", 1) do
+      post testimonials_url,
+        params: { testimonial: { name: "Alice", body: "Love this product!", email: "alice@example.com" } },
+        headers: @headers
+    end
+    assert_redirected_to testimonials_path
+  end
+
+  test "should create testimonial without email" do
     assert_difference("Testimonial.count", 1) do
       post testimonials_url,
         params: { testimonial: { name: "Alice", body: "Love this product!" } },

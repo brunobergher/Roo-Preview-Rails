@@ -32,9 +32,16 @@
           </div>
         <% end %>
 
-        <div>
-          <%= f.label :name, "Your Name", class: "block text-sm font-medium text-gray-700 mb-1" %>
-          <%= f.text_field :name, class: "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent", placeholder: "Enter your name" %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <%= f.label :name, "Your Name", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.text_field :name, class: "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent", placeholder: "Enter your name" %>
+          </div>
+
+          <div>
+            <%= f.label :email, "Email (optional)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.email_field :email, class: "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent", placeholder: "you@example.com" %>
+          </div>
         </div>
 
         <div>
@@ -60,6 +67,9 @@
               </div>
               <div>
                 <p class="text-sm font-semibold text-gray-800"><%= testimonial.name %></p>
+                <% if testimonial.email.present? %>
+                  <p class="text-xs text-gray-400"><%= testimonial.email %></p>
+                <% end %>
                 <p class="text-xs text-gray-400"><%= time_ago_in_words(testimonial.created_at) %> ago</p>
               </div>
             </div>
@@ -72,6 +82,9 @@
                     <p class="text-xs text-gray-600"><%= comment.body %></p>
                     <p class="text-xs text-gray-400 mt-1">
                       <span class="font-medium text-gray-500"><%= comment.author_name %></span>
+                      <% if comment.email.present? %>
+                        <span class="text-gray-300">(<%= comment.email %>)</span>
+                      <% end %>
                       &middot; <%= time_ago_in_words(comment.created_at) %> ago
                     </p>
                   </div>
@@ -82,7 +95,10 @@
             <!-- Comment Form -->
             <div class="border-t border-gray-100 pt-3 mt-3">
               <%= form_with model: Comment.new, url: testimonial_comments_path(testimonial), class: "flex flex-col gap-2" do |f| %>
-                <%= f.text_field :author_name, class: "w-full border border-gray-200 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-transparent", placeholder: "Your name" %>
+                <div class="flex gap-2">
+                  <%= f.text_field :author_name, class: "flex-1 border border-gray-200 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-transparent", placeholder: "Your name" %>
+                  <%= f.email_field :email, class: "flex-1 border border-gray-200 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-transparent", placeholder: "Email (optional)" %>
+                </div>
                 <div class="flex gap-2">
                   <%= f.text_field :body, class: "flex-1 border border-gray-200 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-transparent", placeholder: "Add a comment..." %>
                   <%= f.submit "Reply", class: "bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors cursor-pointer" %>

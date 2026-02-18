@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   root "home#index"
   post "increment", to: "home#increment"
   get "ping", to: "home#ping"
+
+  resources :testimonials, only: [:index, :create]
 end

@@ -4,15 +4,15 @@ ruby "3.3.7"
 
 gem "rails", "~> 8.0"
 gem "pg", "~> 1.5"
-gem "puma", "~> 6.4"
+gem "puma", "~> 7.2"
 gem "sprockets-rails"
 gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "jbuilder"
 gem "redis", "~> 5.0"
-gem "connection_pool", "~> 2.4"
-gem "sidekiq", "~> 7.2"
+gem "connection_pool", "~> 3.0"
+gem "sidekiq", "~> 8.1"
 gem "bootsnap", require: false
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 

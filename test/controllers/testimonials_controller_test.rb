@@ -13,13 +13,13 @@ class TestimonialsControllerTest < ActionDispatch::IntegrationTest
   test "should create testimonial with valid params" do
     assert_difference("Testimonial.count", 1) do
       post testimonials_url,
-        params: { testimonial: { name: "Alice", body: "Love this product!", email: "alice@example.com" } },
+        params: { testimonial: { name: "Alice", body: "Love this product!", email: "alice@example.com", bio: "Engineer" } },
         headers: @headers
     end
     assert_redirected_to testimonials_path
   end
 
-  test "should create testimonial without email" do
+  test "should create testimonial without optional fields" do
     assert_difference("Testimonial.count", 1) do
       post testimonials_url,
         params: { testimonial: { name: "Alice", body: "Love this product!" } },

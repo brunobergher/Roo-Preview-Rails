@@ -45,6 +45,11 @@
         </div>
 
         <div>
+          <%= f.label :bio, "Short Bio (optional)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.text_field :bio, class: "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent", placeholder: "e.g. Software Engineer at Acme Corp", maxlength: 160 %>
+        </div>
+
+        <div>
           <%= f.label :body, "Your Testimonial", class: "block text-sm font-medium text-gray-700 mb-1" %>
           <%= f.text_area :body, rows: 3, class: "w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent", placeholder: "Share your experience..." %>
         </div>
@@ -67,6 +72,9 @@
               </div>
               <div>
                 <p class="text-sm font-semibold text-gray-800"><%= testimonial.name %></p>
+                <% if testimonial.bio.present? %>
+                  <p class="text-xs text-gray-500"><%= testimonial.bio %></p>
+                <% end %>
                 <% if testimonial.email.present? %>
                   <p class="text-xs text-gray-400"><%= testimonial.email %></p>
                 <% end %>

@@ -18,6 +18,6 @@ class TestimonialsController < ApplicationController
   private
 
   def testimonial_params
-    params.require(:testimonial).permit(:name, :email, :body)
+    params.require(:testimonial).permit(:name, :email, :bio, :body)
   end
 end

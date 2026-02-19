@@ -16,4 +16,7 @@ Rails.application.configure do
   config.active_support.deprecation = :stderr
   config.active_support.disallowed_deprecation = :raise
   config.active_support.disallowed_deprecation_warnings = []
+
+  # Allow all hosts in tests (integration tests use www.example.com by default)
+  config.host_authorization = { exclude: ->(request) { true } }
 end

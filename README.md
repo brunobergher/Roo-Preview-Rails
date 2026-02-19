@@ -34,7 +34,7 @@ To run this app in a preview environment, use this configuration:
 name: Rails App
 description: A basic Rails app demo for preview environments.
 repositories:
-  - repository: RooCodeInc/Preview-Rails
+  - repository: brunobergher/Roo-Preview-Rails
     commands:
       - name: Install dependencies
         run: bundle install

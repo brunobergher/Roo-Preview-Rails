@@ -1,0 +1,20 @@
+<%= turbo_stream.prepend "testimonials", @testimonial %>
+
+<%= turbo_stream.replace "new_testimonial" do %>
+  <%= form_with(model: Testimonial.new, class: "space-y-4") do |f| %>
+    <div>
+      <%= f.label :name, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :name, placeholder: "Your name",
+          class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" %>
+    </div>
+
+    <div>
+      <%= f.label :body, "Testimonial", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_area :body, placeholder: "Share your thoughts...", rows: 3,
+          class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" %>
+    </div>
+
+    <%= f.submit "Add Testimonial",
+        class: "bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors cursor-pointer" %>
+  <% end %>
+<% end %>

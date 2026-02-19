@@ -1,0 +1,48 @@
+<main class="min-h-screen bg-gray-50 p-8">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-red-600 mb-2">Testimonial Wall</h1>
+      <p class="text-gray-500">Share your experience with the community</p>
+      <a href="/" class="text-sm text-red-600 hover:underline mt-2 inline-block">Back to Home</a>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-md p-6 mb-10">
+      <h2 class="text-lg font-semibold text-gray-800 mb-4">Add Your Testimonial</h2>
+
+      <%= form_with(model: @testimonial, class: "space-y-4") do |f| %>
+        <% if @testimonial.errors.any? %>
+          <div class="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <ul class="list-disc list-inside">
+              <% @testimonial.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div>
+          <%= f.label :name, class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.text_field :name, placeholder: "Your name",
+              class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" %>
+        </div>
+
+        <div>
+          <%= f.label :body, "Testimonial", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.text_area :body, placeholder: "Share your thoughts...", rows: 3,
+              class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" %>
+        </div>
+
+        <%= f.submit "Add Testimonial",
+            class: "bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors cursor-pointer" %>
+      <% end %>
+    </div>
+
+    <div id="testimonials" class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+      <%= render @testimonials %>
+    </div>
+
+    <% if @testimonials.empty? %>
+      <p class="text-center text-gray-400 mt-8">No testimonials yet. Be the first to share!</p>
+    <% end %>
+  </div>
+</main>

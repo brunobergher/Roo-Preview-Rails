@@ -27,6 +27,10 @@ Rails.application.configure do
   config.active_job.verbose_enqueue_logs = true
   config.assets.quiet = true
 
+  config.hosts << "web-bruno.ngrok.dev"
+  config.hosts << "preview-bruno.ngrok.app"
+  config.hosts << "preview.roocode.cloud"
+
   config.action_cable.url = ENV["ACTION_CABLE_URL"] if ENV["ACTION_CABLE_URL"].present?
   config.action_cable.allowed_request_origins = ENV["ALLOWED_ORIGINS"]&.split(",") if ENV["ALLOWED_ORIGINS"].present?
 end

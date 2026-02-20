@@ -28,6 +28,22 @@ class TestimonialTest < ActiveSupport::TestCase
     assert_not testimonial.valid?
   end
 
+  test "valid with email" do
+    testimonial = Testimonial.new(name: "Alice", email: "alice@example.com", message: "Great!")
+    assert testimonial.valid?
+  end
+
+  test "valid without email" do
+    testimonial = Testimonial.new(name: "Alice", message: "Great!")
+    assert testimonial.valid?
+  end
+
+  test "invalid with malformed email" do
+    testimonial = Testimonial.new(name: "Alice", email: "not-an-email", message: "Great!")
+    assert_not testimonial.valid?
+    assert_includes testimonial.errors[:email], "must be a valid email address"
+  end
+
   test "recent scope orders by created_at desc" do
     old = Testimonial.create!(name: "Old", message: "First", created_at: 2.days.ago)
     new_one = Testimonial.create!(name: "New", message: "Second", created_at: 1.hour.ago)

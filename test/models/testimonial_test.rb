@@ -44,6 +44,16 @@ class TestimonialTest < ActiveSupport::TestCase
     assert_includes testimonial.errors[:email], "must be a valid email address"
   end
 
+  test "valid with city" do
+    testimonial = Testimonial.new(name: "Alice", city: "Portland", message: "Great!")
+    assert testimonial.valid?
+  end
+
+  test "city cannot exceed 100 characters" do
+    testimonial = Testimonial.new(name: "Alice", city: "A" * 101, message: "Great!")
+    assert_not testimonial.valid?
+  end
+
   test "recent scope orders by created_at desc" do
     old = Testimonial.create!(name: "Old", message: "First", created_at: 2.days.ago)
     new_one = Testimonial.create!(name: "New", message: "Second", created_at: 1.hour.ago)

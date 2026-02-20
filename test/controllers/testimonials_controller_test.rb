@@ -9,10 +9,11 @@ class TestimonialsControllerTest < ActionDispatch::IntegrationTest
 
   test "POST create with valid params creates testimonial and redirects" do
     assert_difference "Testimonial.count", 1 do
-      post testimonials_path, params: { testimonial: { name: "Bob", email: "bob@example.com", city: "NYC", message: "Love this app!" } }
+      post testimonials_path, params: { testimonial: { name: "Bob", email: "bob@example.com", city: "NYC", country: "USA", message: "Love this app!" } }
     end
     assert_equal "bob@example.com", Testimonial.last.email
     assert_equal "NYC", Testimonial.last.city
+    assert_equal "USA", Testimonial.last.country
     assert_redirected_to testimonials_path
     follow_redirect!
     assert_match "Thanks for sharing", response.body

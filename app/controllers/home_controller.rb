@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   def index
     @counter = Counter.clicks
     @pending_jobs = Sidekiq::Queue.new.size
+    @calculation = 2 + 2
   end
 
   def increment

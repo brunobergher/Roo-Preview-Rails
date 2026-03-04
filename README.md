@@ -41,6 +41,8 @@ repositories:
         timeout: 120
       - name: Setup database
         run: bin/rails db:create db:migrate
+      - name: Build Tailwind CSS
+        run: bin/rails tailwindcss:build
       - name: Start Tailwind watcher
         run: bin/rails tailwindcss:watch
         detached: true
@@ -69,3 +71,7 @@ services:
 ```
 
 <img width="1494" height="1161" alt="Preview" src="https://github.com/user-attachments/assets/f5348c8b-297d-4de8-8481-840744937b39" />
+
+## Fun Fact
+
+1 + 1 = **2**

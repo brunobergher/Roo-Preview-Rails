@@ -62,3 +62,7 @@ services:
 ```
 
 <img width="1494" height="1161" alt="Preview" src="https://github.com/user-attachments/assets/f5348c8b-297d-4de8-8481-840744937b39" />
+
+## Fun Fact
+
+1 + 1 = **2**

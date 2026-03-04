@@ -31,7 +31,7 @@ bin/dev
 To run this app in a preview environment, use this configuration:
 
 ```yaml
-name: Rails App
+name: Rails App (Dual services)
 description: A basic Rails app demo for preview environments.
 repositories:
   - repository: brunobergher/Roo-Preview-Rails
@@ -49,13 +49,20 @@ repositories:
         run: bundle exec sidekiq -C config/sidekiq.yml
         detached: true
         logfile: /tmp/sidekiq.log
-      - name: Start web server
+      - name: Start Rails server
         run: bin/rails server -p 3000 -b 0.0.0.0
         detached: true
         logfile: /tmp/web.log
+      - name: Start sinatra server
+        run: bin/dev server -p 3001 -b 0.0.0.0
+        detached: true
+        logfile: /tmp/web.log
+
 ports:
-  - name: WEB
+  - name: RAILS
     port: 3000
+  - name: SINATRA
+    port: 3001
 services:
   - postgres17
   - redis7

@@ -41,6 +41,8 @@ repositories:
         timeout: 120
       - name: Setup database
         run: bin/rails db:create db:migrate
+      - name: Build Tailwind CSS
+        run: bin/rails tailwindcss:build
       - name: Start Tailwind watcher
         run: bin/rails tailwindcss:watch
         detached: true

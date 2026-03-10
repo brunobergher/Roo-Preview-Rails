@@ -28,7 +28,7 @@ Rails.application.configure do
   config.assets.quiet = true
 
   config.hosts << "web-bruno.ngrok.dev"
-  config.hosts << "preview-bruno.ngrok.app"
+  config.hosts << /.*\.preview-bruno\.ngrok\.app\z/
   config.hosts << "preview.roocode.cloud"
   config.hosts << /.*\.vercel\.run\z/
 

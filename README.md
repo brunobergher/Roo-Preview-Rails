@@ -16,11 +16,17 @@ docker compose up -d
 bin/rails db:create db:migrate
 ```
 
+## Environment Variables
+
+| Variable | Required | Description |
+|---|---|---|
+| `SECRET_SAUCE` | **Yes** | Any string value. Displayed on the home page. The app will refuse to boot without it. |
+
 ## Run
 
 ```bash
 # Start everything (web server + Sidekiq)
-bin/dev
+SECRET_SAUCE=ketchup bin/dev
 ```
 
 - **App**: http://localhost:3000

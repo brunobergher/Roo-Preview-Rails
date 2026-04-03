@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   def index
     @counter = Counter.clicks
     @pending_jobs = Sidekiq::Queue.new.size
+    @secret_sauce = ENV["SECRET_SAUCE"]
   end
 
   def increment

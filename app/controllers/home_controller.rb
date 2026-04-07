@@ -1,7 +1,9 @@
+require "sidekiq/api"
+
 class HomeController < ApplicationController
   def index
     @counter = Counter.clicks
-    @pending_jobs = Sidekiq::Queue.new.size
+    @pending_jobs = pending_jobs_count
     @secret_sauce = ENV["SECRET_SAUCE"]
   end
 
@@ -12,5 +14,13 @@ class HomeController < ApplicationController
 
   def ping
     render json: { message: "Pong", timestamp: Time.current.iso8601 }
+  end
+
+  private
+
+  def pending_jobs_count
+    Sidekiq::Queue.new.size
+  rescue RedisClient::ConnectionError
+    nil
   end
 end

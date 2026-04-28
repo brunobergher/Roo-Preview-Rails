@@ -7,3 +7,33 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.rainbow-cycle-bg {
+  background: linear-gradient(
+    135deg,
+    #ff0000,
+    #ff7f00,
+    #ffff00,
+    #00ff00,
+    #0000ff,
+    #4b0082,
+    #8b00ff,
+    #ff0000
+  );
+  background-size: 400% 400%;
+  animation: rainbow-cycle 12s linear infinite;
+}
+
+@keyframes rainbow-cycle {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}

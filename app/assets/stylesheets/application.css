@@ -7,3 +7,11 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.font-times {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.grayscale-images img {
+  filter: grayscale(100%);
+}

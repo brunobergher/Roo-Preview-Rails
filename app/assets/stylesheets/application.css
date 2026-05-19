@@ -2,8 +2,3 @@
  *= require_tree .
  *= require_self
  */
-
-body {
-  margin: 0;
-  padding: 0;
-}

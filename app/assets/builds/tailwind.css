@@ -200,6 +200,9 @@
   .static {
     position: static;
   }
+  .mt-1 {
+    margin-top: calc(var(--spacing) * 1);
+  }
   .mt-2 {
     margin-top: calc(var(--spacing) * 2);
   }
@@ -281,9 +284,6 @@
   }
   .bg-green-100 {
     background-color: var(--color-green-100);
-  }
-  .bg-red-500 {
-    background-color: var(--color-red-500);
   }
   .bg-red-600 {
     background-color: var(--color-red-600);
@@ -413,6 +413,20 @@
     @media (width >= 64rem) {
       flex-direction: row;
     }
+  }
+}
+@layer base {
+  body {
+    margin: calc(var(--spacing) * 0);
+    background-color: var(--color-red-500);
+    padding: calc(var(--spacing) * 0);
+    font-family: "Times New Roman", Times, serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Times New Roman", Times, serif;
+  }
+  img {
+    filter: grayscale(100%);
   }
 }
 @property --tw-border-style {

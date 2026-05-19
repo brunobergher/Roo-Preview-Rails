@@ -1,1 +1,21 @@
 @import "tailwindcss";
+
+@layer base {
+  body {
+    @apply m-0 p-0 bg-red-500;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  img {
+    filter: grayscale(100%);
+  }
+}
